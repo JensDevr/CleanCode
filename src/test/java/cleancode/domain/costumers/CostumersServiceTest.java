@@ -48,6 +48,5 @@ public class CostumersServiceTest {
         List<Costumer> actual = costumersService.getAllCostumers();
 
         Assertions.assertThat(actual).containsOnly(costumer1, costumer2);
-
     }
 }

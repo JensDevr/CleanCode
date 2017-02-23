@@ -1,15 +1,21 @@
 package cleancode.domain.costumers;
 
+import cleancode.domain.loyalty.LoyaltyCard;
+import javax.persistence.*;
+
 /**
  * Created by jensde on 23/02/2017.
  */
 public class Costumer {
     private final String name;
     private final String id;
+    @OneToOne(cascade = CascadeType.ALL)
+    private LoyaltyCard loyaltyCard;
 
     public Costumer(String name, String id) {
         this.name = name;
         this.id = id;
+
     }
 
     public String getName() {
@@ -20,6 +26,7 @@ public class Costumer {
         return id;
     }
 
+    public void customerCard (){ }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -27,14 +34,11 @@ public class Costumer {
 
         Costumer costumer = (Costumer) o;
 
-        if (name != null ? !name.equals(costumer.name) : costumer.name != null) return false;
         return id != null ? id.equals(costumer.id) : costumer.id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 }
