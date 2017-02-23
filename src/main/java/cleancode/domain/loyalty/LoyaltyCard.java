@@ -6,11 +6,21 @@ package cleancode.domain.loyalty;
 public class LoyaltyCard {
 
     private String barcode;
-    private int bonusPoints;
+    private long bonusPoints;
 
-    public LoyaltyCard(String barcode, int bonusPoints) {
+    public LoyaltyCard(String barcode, long bonusPoints) {
         this.barcode = barcode;
         this.bonusPoints = bonusPoints;
+    }
+
+    public LoyaltyCard(){}
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public long getBonusPoints() {
+        return bonusPoints;
     }
 
     @Override
@@ -20,11 +30,14 @@ public class LoyaltyCard {
 
         LoyaltyCard that = (LoyaltyCard) o;
 
+        if (bonusPoints != that.bonusPoints) return false;
         return barcode != null ? barcode.equals(that.barcode) : that.barcode == null;
     }
 
     @Override
     public int hashCode() {
-        return barcode != null ? barcode.hashCode() : 0;
+        int result = barcode != null ? barcode.hashCode() : 0;
+        result = 31 * result + (int) (bonusPoints ^ (bonusPoints >>> 32));
+        return result;
     }
 }
